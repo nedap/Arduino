@@ -19,7 +19,7 @@
   Free Software Foundation, Inc., 59 Temple Place, Suite 330,
   Boston, MA  02111-1307  USA
 
-  $Id$
+  $Id: pins_arduino.c 804 2009-12-18 16:05:52Z dmellis $
 */
 
 #include <avr/io.h>
@@ -77,8 +77,12 @@
 #define PK 11
 #define PL 12
 
+#define REPEAT8(x) x, x, x, x, x, x, x, x
+#define BV0TO7 _BV(0), _BV(1), _BV(2), _BV(3), _BV(4), _BV(5), _BV(6), _BV(7)
+#define BV7TO0 _BV(7), _BV(6), _BV(5), _BV(4), _BV(3), _BV(2), _BV(1), _BV(0)
 
-#if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
+
+#if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega640__)
 const uint16_t PROGMEM port_to_mode_PGM[] = {
 	NOT_A_PORT,
 	&DDRA,
@@ -200,6 +204,13 @@ const uint8_t PROGMEM digital_pin_to_port_PGM[] = {
 	PK	, // PK 5 ** 67 ** A13	
 	PK	, // PK 6 ** 68 ** A14	
 	PK	, // PK 7 ** 69 ** A15	
+	PE  , // PE 7 ** 70 ** D70
+	PE  , // PE 6 ** 71 ** D71
+	PJ  , // PJ 2 ** 72 ** D72
+	PJ  , // PJ 3 ** 73 ** D73
+	PH  , // PH 7 ** 74 ** D74
+	PJ  , // PJ 5 ** 75 ** D75
+	PJ  , // PJ 7 ** 76 ** D76
 };
 
 const uint8_t PROGMEM digital_pin_to_bit_mask_PGM[] = {
@@ -275,6 +286,13 @@ const uint8_t PROGMEM digital_pin_to_bit_mask_PGM[] = {
 	_BV( 5 )	, // PK 5 ** 67 ** A13	
 	_BV( 6 )	, // PK 6 ** 68 ** A14	
 	_BV( 7 )	, // PK 7 ** 69 ** A15	
+	_BV( 7 )    , // PE 7 ** 70 ** D70
+	_BV( 6 )    , // PE 6 ** 71 ** D71
+	_BV( 2 )    , // PJ 2 ** 72 ** D72
+	_BV( 3 )    , // PJ 3 ** 73 ** D73
+	_BV( 7 )    , // PH 7 ** 74 ** D74
+	_BV( 5 ) 	, // PJ 5 ** 75 ** D75
+	_BV( 7 ) 	, // PJ 7 ** 76 ** D76
 };
 
 const uint8_t PROGMEM digital_pin_to_timer_PGM[] = {
@@ -350,6 +368,13 @@ const uint8_t PROGMEM digital_pin_to_timer_PGM[] = {
 	NOT_ON_TIMER	, // PK 5 ** 67 ** A13	
 	NOT_ON_TIMER	, // PK 6 ** 68 ** A14	
 	NOT_ON_TIMER	, // PK 7 ** 69 ** A15	
+	NOT_ON_TIMER    , // PE 7 ** 70 ** D70
+	NOT_ON_TIMER    , // PE 6 ** 71 ** D71
+	NOT_ON_TIMER    , // PJ 2 ** 72 ** D72
+	NOT_ON_TIMER    , // PJ 3 ** 73 ** D73
+	NOT_ON_TIMER    , // PH 7 ** 74 ** D74
+	NOT_ON_TIMER	, // PJ 5 ** 75 ** D75
+	NOT_ON_TIMER	, // PJ 7 ** 76 ** D76
 };
 #else
 // these arrays map port names (e.g. port B) to the
